@@ -15,6 +15,7 @@ def persists(msg):
             }
         }
     ]
+    print(json_body)
     logging.info(json_body)
     myresult = influx_client.write_points(json_body)
 

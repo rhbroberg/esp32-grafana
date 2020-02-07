@@ -4,9 +4,6 @@ services:
   mosquitto:
     image: eclipse-mosquitto
     container_name: mosquitto
-    ports:
-     - "9001:9001"
-     - "1883:1883"
     restart: always
    
   influxdb:
@@ -17,9 +14,6 @@ services:
      - INFLUXDB_DB="iot"
      - INFLUXDB_USER="gatherer"
      - INFLUXDB_USER_PASSWORD="password"
-    ports:
-     - "8083:8083"
-     - "8086:8086"
     volumes:
      - ./influxdb:/var/lib/influxdb
  
