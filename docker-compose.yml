@@ -4,6 +4,9 @@ services:
   mosquitto:
     image: eclipse-mosquitto
     container_name: mosquitto
+    ports:
+      - "9001:9001"
+      - "1883:1883"
     restart: always
    
   influxdb:
