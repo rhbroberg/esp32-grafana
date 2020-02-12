@@ -58,6 +58,8 @@ services:
     image: mqtt-influx-bridge
     container_name: bridge
     restart: always
+    environment:
+      - QOS:1
 
   node-exporter:
     image: prom/node-exporter:latest
