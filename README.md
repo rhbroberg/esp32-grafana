@@ -16,6 +16,5 @@ Build the mqtt-influxdb-bridge docker image first.  Only tested on ubuntu/18.04 
 * unsurprisingly, all of the monitoring is substantially more heavyweight than the actual basic service
 
 todo:
-* pre-populate the grafana area with the desired dashboards
+* have make target retrieve newer grafana dashboards
 * have 2 docker-compose.yml files - 1 with the monitoring, 1 without
-

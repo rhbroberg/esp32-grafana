@@ -36,4 +36,4 @@ scrape_configs:
     
     scrape_interval: 30s
     static_configs:
-            - targets: ['ubuntu-18-04-04:9323', 'cadvisor:8080', 'localhost:9090','node-exporter:9100']
+            - targets: ['ubuntu-18-04-06:9323', 'cadvisor:8080', 'localhost:9090','node-exporter:9100']
