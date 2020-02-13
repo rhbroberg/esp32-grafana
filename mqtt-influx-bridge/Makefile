@@ -3,7 +3,7 @@ mqtt-influx-bridge:	requirements.txt listener.py Dockerfile
 
 venv:
 	pip3 install virtualenv
-	virtualenv -p /usr/bin/python3 venv
+	virtualenv -p python3 venv
 
 requirements.txt:	venv listener.py
 	. venv/bin/activate && pip install paho-mqtt influxdb
