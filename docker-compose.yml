@@ -13,6 +13,8 @@ services:
       - --storage.tsdb.path=/prometheus
     expose:
       - 9090
+    networks:
+      - grafana
 
   mosquitto-exporter:
     image: sapcc/mosquitto-exporter:0.6.0
@@ -23,6 +25,9 @@ services:
     depends_on:
       - mosquitto
       - prometheus
+    networks:
+      - mqtt
+      - grafana
 
   mosquitto:
     image: eclipse-mosquitto
@@ -31,7 +36,9 @@ services:
       - "9001:9001"
       - "1883:1883"
     restart: always
-   
+    networks:
+      - mqtt
+
   influxdb:
     image: influxdb
     container_name: influxdb
@@ -42,6 +49,8 @@ services:
      - INFLUXDB_USER_PASSWORD="password"
     volumes:
      - influxdb-data:/var/lib/influxdb
+    networks:
+      - iot-db
 
   grafana:
     image: grafana/grafana
@@ -54,6 +63,9 @@ services:
       - grafana-log:/var/log/grafana
       - grafana-conf:/etc/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
+    networks:
+      - grafana
+      - iot-db
 
   bridge:
     image: mqtt-influx-bridge
@@ -64,6 +76,9 @@ services:
     depends_on:
       - mosquitto
       - influxdb
+    networks:
+      - mqtt
+      - iot-db
 
   node-exporter:
     image: prom/node-exporter:latest
@@ -73,6 +88,8 @@ services:
       - 9100
     depends_on:
       - prometheus
+    networks:
+      - grafana
 
   cadvisor:
     image: google/cadvisor:latest
@@ -87,6 +104,8 @@ services:
       - 8080
     depends_on:
       - prometheus
+    networks:
+      - grafana
 
 volumes:
   grafana-db:
@@ -97,3 +116,11 @@ volumes:
     driver: local
   influxdb-data:
     driver: local
+
+networks:
+  mqtt:
+    driver: bridge
+  iot-db:
+    driver: bridge
+  grafana:
+    driver: bridge

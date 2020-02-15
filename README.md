@@ -20,3 +20,11 @@ Build the mqtt-influxdb-bridge docker image first.  Only tested on ubuntu/18.04 
 todo:
 * have make target retrieve newer grafana dashboards
 * have 2 docker-compose.yml files - 1 with the monitoring, 1 without
+* volumes for mosquitto: /mosquitto/data /mosquitto/log
+* in mosquitto Dockerfile to reload on cert change (then write script using 'inotifywait -e attrib /path/to/watcher' which is poked by the certbot ... --post-hook "touch /path/to/watcher").  launch mosquitto from wrapper script
+     RUN \
+	apk update && \
+	apk upgrade && \
+	apk add inotify-tools \
+	rm -f /var/cache/apk/*
+
